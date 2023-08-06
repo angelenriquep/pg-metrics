@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  go-metrics-scrapper:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
   postgres:
     image: postgres:13
     environment:

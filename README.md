@@ -1,4 +1,44 @@
-# Setup
+# Postgres - The Cumulative Statistics System
+
+- Statistics Collection Configuration
+- Viewing Statistics
+- pg_stat_activity
+- pg_stat_replication
+- pg_stat_replication_slots
+- pg_stat_wal_receiver
+- pg_stat_recovery_prefetch
+- pg_stat_subscription
+- pg_stat_subscription_stats
+- pg_stat_ssl
+- pg_stat_gssapi
+- pg_stat_archiver
+- pg_stat_bgwriter
+- pg_stat_wal
+- pg_stat_database
+- pg_stat_database_conflicts
+- pg_stat_all_tables
+- pg_stat_all_indexes
+- pg_statio_all_tables
+- pg_statio_all_indexes
+- pg_statio_all_sequences
+- pg_stat_user_functions
+- pg_stat_slru
+- Statistics Functions
+
+PostgreSQL's cumulative statistics system supports collection and reporting of
+information about server activity. Presently, accesses to tables and indexes in
+both disk-block and individual-row terms are counted. The total number of rows
+in each table, and information about vacuum and analyze actions for each table
+are also counted. If enabled, calls to user-defined functions and the total time
+spent in each one are counted as well.
+
+## Setup
+
+Because we are using the host and not an internal netowkr to expose the services:
+host.docker.internal
+
+The problem of this script is that beucase is pull, we may affect performance of
+postgres? should this scrapper run each minute rathern than 15 secs?
 
 ```sql
 psql -d mydatabase -U myuser
@@ -41,3 +81,11 @@ select userid::regrole, dbid, query
     from pg_stat_statements
     order by temp_blks_written desc
     limit 10;
+
+## TODO
+
+- Transform the metrics to make humna readable
+- Failure tolerance
+- Performance improv
+- Monitor healthcheck, and server stats
+- Check metrics from <https://github.com/cybertec-postgresql/pgwatch2/blob/master/pgwatch2/pgwatch2.go#L3600>
